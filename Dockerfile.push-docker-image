@@ -1,0 +1,2 @@
+FROM ikenom.azurecr.io/push-docker-image
+COPY . .

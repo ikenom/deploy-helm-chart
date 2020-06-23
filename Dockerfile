@@ -1,10 +1,13 @@
 FROM dtzar/helm-kubectl
 
-ENV APP_HOME /data/deploy-helm-chart
-WORKDIR $APP_HOME
+RUN mkdir /app
+WORKDIR /app
 
 ENV HELM_EXPERIMENTAL_OCI 1
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
 
-ENTRYPOINT ["bash", "entrypoint.sh"]
+COPY ./scripts/entrypoint.sh entrypoint.sh
+RUN chmod +x entrypoint.sh
+
+WORKDIR /data/push-helm-chart
+
+ENTRYPOINT ["bash", "/app/entrypoint.sh"]
